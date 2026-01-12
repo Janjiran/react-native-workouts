@@ -1,7 +1,7 @@
 {
   "name": "react-native-workouts",
-  "version": "0.1.0",
-  "description": "Expo module for creating Apple Watch workouts using WorkoutKit.",
+  "version": "0.2.3",
+  "description": "React Native Expo module for Apple WorkoutKit - create, preview, and sync custom workouts to Apple Watch",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
@@ -12,27 +12,45 @@
     "prepare": "expo-module prepare",
     "prepublishOnly": "expo-module prepublishOnly",
     "expo-module": "expo-module",
-    "open:ios": "xed example/ios",
-    "open:android": "open -a \"Android Studio\" example/android"
+    "open:ios": "xed example/ios"
   },
   "keywords": [
     "react-native",
     "expo",
-    "react-native-workouts",
-    "ReactNativeWorkouts"
+    "workoutkit",
+    "apple-watch",
+    "fitness",
+    "workout",
+    "healthkit",
+    "ios",
+    "custom-workout",
+    "interval-training"
   ],
-  "repository": "https://github.com/Janjiran/react-native-workouts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Janjiran/react-native-workouts.git"
+  },
   "bugs": {
     "url": "https://github.com/Janjiran/react-native-workouts/issues"
   },
   "author": "Jan (Honza) Jiráň <jan.jiran@understudios.org> (https://github.com/Janjiran)",
   "license": "MIT",
   "homepage": "https://github.com/Janjiran/react-native-workouts#readme",
+  "os": [
+    "darwin"
+  ],
+  "cpu": [
+    "arm64",
+    "x64"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/react": "~19.1.0",
-    "expo-module-scripts": "^5.0.8",
     "expo": "^54.0.27",
+    "expo-module-scripts": "^5.0.8",
     "react-native": "0.81.5"
   },
   "peerDependencies": {

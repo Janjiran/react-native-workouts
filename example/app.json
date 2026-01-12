@@ -14,19 +14,15 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "expo.modules.workouts.example"
+      "bundleIdentifier": "expo.modules.workouts.example",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "This app needs access to health data to sync workouts.",
+        "NSHealthUpdateUsageDescription": "This app needs to write workout data."
+      }
     },
+    "plugins": [],
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
       "package": "expo.modules.workouts.example"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }

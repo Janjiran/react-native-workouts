@@ -1,9 +1,10 @@
 {
-  "platforms": ["apple", "android", "web"],
+  "platforms": [
+    "apple"
+  ],
   "apple": {
-    "modules": ["ReactNativeWorkoutsModule"]
-  },
-  "android": {
-    "modules": ["expo.modules.workouts.ReactNativeWorkoutsModule"]
+    "modules": [
+      "ReactNativeWorkoutsModule"
+    ]
   }
 }
