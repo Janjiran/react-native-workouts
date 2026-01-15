@@ -121,6 +121,16 @@ public class ReactNativeWorkoutsModule: Module {
                 throw Exception(name: "Unavailable", description: workoutKitUnavailableMessage)
             }
 
+            // Request HealthKit authorization explicitly so:
+            // - iOS shows the permission prompt
+            // - the app appears under Health → Apps
+            //
+            // WorkoutKit ultimately schedules/syncs workouts via HealthKit.
+            if HKHealthStore.isHealthDataAvailable() {
+                let workoutType = HKObjectType.workoutType()
+                try await self.healthStore.requestAuthorization(toShare: [workoutType], read: [workoutType])
+            }
+
             let status = await WorkoutScheduler.shared.requestAuthorization()
             return self.authorizationStateToString(status)
         }
