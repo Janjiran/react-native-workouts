@@ -5,6 +5,7 @@ import type {
   AuthorizationStatus,
   CustomWorkoutConfig,
   DateComponents,
+  HealthWorkoutType,
   LocationType,
   PacerWorkoutConfig,
   ReactNativeWorkoutsModuleEvents,
@@ -34,6 +35,17 @@ declare class ReactNativeWorkoutsModule
    * Prompts the user for WorkoutKit authorization (if needed).
    */
   requestAuthorization(): Promise<AuthorizationStatus>;
+
+  // HealthKit
+  /**
+   * Saves a finished workout (start/end only) to Apple Health.
+   * Requests HealthKit share authorization on first use; rejects when denied or unavailable.
+   */
+  saveWorkout(
+    activityType: HealthWorkoutType,
+    startMs: number,
+    endMs: number,
+  ): Promise<boolean>;
 
   // Validation
   /**

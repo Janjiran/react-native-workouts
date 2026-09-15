@@ -135,6 +135,32 @@ public class ReactNativeWorkoutsModule: Module {
             return self.authorizationStateToString(status)
         }
 
+        // MARK: - HealthKit Write
+
+        // Saves a finished workout (start/end only, no samples) to Health so it appears in Fitness.
+        AsyncFunction("saveWorkout") { (activityType: String, startMs: Double, endMs: Double) async throws -> Bool in
+            guard HKHealthStore.isHealthDataAvailable() else {
+                throw Exception(name: "HealthKitUnavailable", description: "Health data is not available on this device.")
+            }
+
+            let workoutType = HKObjectType.workoutType()
+            if self.healthStore.authorizationStatus(for: workoutType) == .notDetermined {
+                try await self.healthStore.requestAuthorization(toShare: [workoutType], read: [])
+            }
+            guard self.healthStore.authorizationStatus(for: workoutType) == .sharingAuthorized else {
+                throw Exception(name: "HealthKitDenied", description: "Writing workouts to Health was not authorized.")
+            }
+
+            let configuration = HKWorkoutConfiguration()
+            configuration.activityType = self.hkActivityType(from: activityType)
+
+            let builder = HKWorkoutBuilder(healthStore: self.healthStore, configuration: configuration, device: .local())
+            try await builder.beginCollection(at: Date(timeIntervalSince1970: startMs / 1000))
+            try await builder.endCollection(at: Date(timeIntervalSince1970: endMs / 1000))
+            _ = try await builder.finishWorkout()
+            return true
+        }
+
         // MARK: - Workout Validation
 
         AsyncFunction("supportsGoal") { (activityType: String, locationType: String, goalType: String) throws -> Bool in
@@ -517,6 +543,20 @@ public class ReactNativeWorkoutsModule: Module {
     }
 
     // MARK: - Helper Methods
+
+    /// Maps the app's workout type strings to HealthKit activity types.
+    private func hkActivityType(from type: String) -> HKWorkoutActivityType {
+        switch type {
+        case "cardio", "mixed": return .mixedCardio
+        case "strength": return .traditionalStrengthTraining
+        case "flexibility": return .flexibility
+        case "hiit": return .highIntensityIntervalTraining
+        case "yoga": return .yoga
+        case "pilates": return .pilates
+        case "dance": return .cardioDance
+        default: return .other
+        }
+    }
 
     @available(iOS 17.0, *)
     private func authorizationStateToString(_ state: WorkoutScheduler.AuthorizationState) -> String {

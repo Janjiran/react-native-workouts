@@ -48,10 +48,11 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@types/react": "~19.1.0",
-    "expo": "^54.0.27",
+    "@types/react": "~19.2.10",
+    "expo": "~55.0.31",
     "expo-module-scripts": "^5.0.8",
-    "react-native": "0.81.5"
+    "react": "19.2.0",
+    "react-native": "0.83.10"
   },
   "peerDependencies": {
     "expo": "*",

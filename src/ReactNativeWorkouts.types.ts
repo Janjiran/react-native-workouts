@@ -44,6 +44,20 @@ export type ActivityType =
 
 export type LocationType = "indoor" | "outdoor";
 
+/**
+ * Coarse workout categories accepted by `saveWorkout`; mapped to `HKWorkoutActivityType` natively.
+ */
+export type HealthWorkoutType =
+  | "cardio"
+  | "strength"
+  | "flexibility"
+  | "hiit"
+  | "yoga"
+  | "pilates"
+  | "dance"
+  | "mixed"
+  | "other";
+
 // Units
 
 export type DistanceUnit =
